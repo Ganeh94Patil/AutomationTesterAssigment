@@ -1,0 +1,102 @@
+package fitfeo_company;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class AutomationTesterAssignment {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		// TestCase - 01 Navigate to the Fitpeo Homapage
+
+		// Launch the browser
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();
+
+		// Launch the Url
+		driver.get("https://www.fitpeo.com/");
+		// maximze the Window
+		driver.manage().window().maximize();
+
+		// Using wait statement
+		Thread.sleep(5000);
+
+		// Navigate to the Homepage
+		driver.navigate().to("https://fitpeo.com/home");
+
+		Thread.sleep(5000);
+
+		// TestCase - 02 Navagate to the Revenue Calculator Page
+
+		driver.navigate().to("https://fitpeo.com/revenue-calculator");
+
+		// TestCase - 03 Scroll down to the slider section
+
+		Actions action = new Actions(driver);
+		action.scrollByAmount(0, 1000).perform();
+
+		// TestCase -04 Adjust the slider bar in Value
+		// TestCase -04 FAIL
+		Thread.sleep(5000);
+		WebElement Slider = driver.findElement(By.xpath("//span[@data-index='0']"));
+		Actions action2 = new Actions(driver);
+		action2.dragAndDropBy(Slider, 820, 0);
+
+		
+		// TestCase -05 Update the text filed
+		// TestCase -05 FAIL
+		Thread.sleep(5000);
+		WebElement textfieldvalue = driver
+				.findElement(By.xpath("//fieldset[@class='MuiOutlinedInput-notchedOutline css-igs3ac']"));
+		textfieldvalue.getAttribute(String.valueOf("560"));
+
+		// TestCase -06 validate the slide value
+		// TestCase -06
+		
+		WebElement ValidateSlideValue = driver
+				.findElement(By.xpath("//fieldset[@class='MuiOutlinedInput-notchedOutline css-igs3ac"));
+	
+		System.out.println(ValidateSlideValue.isDisplayed());
+
+		// TestCase -07 select the CPT Codes
+		Thread.sleep(2000);
+		// SELECT CPT CODE-99091
+		driver.findElement(By.xpath("(//input[@type='checkbox'])[1]")).click();
+		Thread.sleep(2000);
+		// SELECT CPT CODE -99453
+
+		driver.findElement(By.xpath("(//input[@type='checkbox'])[2]")).click();
+		Thread.sleep(2000);
+		// SELECT CPT CODE -99454
+		driver.findElement(By.xpath("(//input[@type='checkbox'])[3]")).click();
+		Thread.sleep(2000);
+		// SELECT CPT CODE - 99474
+		driver.findElement(By.xpath("(//input[@type='checkbox'])[8]")).click();
+		Thread.sleep(2000);
+
+		// TestCase -08 Validate the total Recurring Reimbursement
+		// Verify that the header displying total Recurring Reimbursement for all
+		// petience per month
+
+		Thread.sleep(2000);
+
+		WebElement TotalReimbursement = driver.findElement(
+				By.xpath("//header[@class='MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root"
+						+ " MuiAppBar-colorDefault MuiAppBar-positionFixed mui-fixed css-nq2yav']"));
+
+		System.out.println(TotalReimbursement.isDisplayed());
+		
+		// close the Browser
+		driver.close();
+
+	}
+
+}
